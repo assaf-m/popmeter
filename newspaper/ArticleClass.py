@@ -1,5 +1,5 @@
 '''
-
+first commit from collaborator
 '''
 import codecs #This is for writing "strange"unicode chars like "thin space" into file 
 import newspaper
