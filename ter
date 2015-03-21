@@ -1,0 +1,42 @@
+[33mcommit a39b35d67605d6daf8ad4accf27ab0fe431499aa[m
+Merge: 637b016 03e394b
+Author: Assaf Milman <assaf.milman@gmail.com>
+Date:   Sat Feb 21 13:33:42 2015 +0200
+
+    merged changes
+
+[33mcommit 637b016241fca559c2e97ff3286d7bdb91f222e1[m
+Author: Assaf Milman <assaf.milman@gmail.com>
+Date:   Fri Feb 20 17:22:23 2015 +0200
+
+    articles are now inserted to DB as part of the flow. See how the colelction object is used in the UploadAll function
+
+[33mcommit 03e394bbdc31919e9ca6f8b152c6585ca5c8f86e[m
+Author: Assaf Milman <assaf.milman@gmail.com>
+Date:   Fri Feb 20 17:22:23 2015 +0200
+
+    added classes for DB and collection operations. Added method for checking if document exists in collection
+
+[33mcommit b00629a3291e3eb5ebbce0fc6f1f79672cf5761c[m
+Author: unknown <oded.milman@gmail.com>
+Date:   Sat Feb 14 19:40:59 2015 +0200
+
+    check 2 by oded
+
+[33mcommit acb8bcdb42236ae4ed329a7936a05c57ed0402fa[m
+Author: unknown <oded.milman@gmail.com>
+Date:   Sat Feb 14 19:29:23 2015 +0200
+
+    check by oded
+
+[33mcommit bd43210c6e8cffd4d8d522673be76145fde7aee3[m
+Author: Assaf Milman <assaf.milman@gmail.com>
+Date:   Sat Feb 14 17:51:48 2015 +0200
+
+    first collaborator commit
+
+[33mcommit 80b922f3f8520768abedb5192391e1e77f28a93f[m
+Author: Assaf Milman <assaf.milman@gmail.com>
+Date:   Sat Feb 14 17:34:03 2015 +0200
+
+    first commit, without motherfucking intruders

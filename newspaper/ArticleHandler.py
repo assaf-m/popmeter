@@ -1,6 +1,8 @@
 import codecs   # This is for writing "strange" unicode chars like "thin space" into file
 import newspaper
 import time
+import DB_methods
+
 
 MINIMUM_TEXT_LENGTH = 1000
 
@@ -43,22 +45,24 @@ class ArticleHandler(object):
         return(reason)
 
 
-def UploadArticle(newspaper_article):
+def UploadArticle(newspaper_article,collection):
     newspaper_article.download()
     newspaper_article.parse()
     a = ArticleHandler()
     a.load_data(newspaper_article)
+    #insert article, if it doesnt exist. notice the specification of the ID field and its corresponding value
+    collection.insertArticle(articleObj= a,ID_field_name= 'title',ID_field_value = a.title)
     return(a)
 
 
-def UploadAll(html_page):
+def UploadAll(html_page,collection):
     newspaper_build_obj = newspaper.build(html_page, memoize_articles=False)
     s = newspaper_build_obj.size()
     article_list=[]
     j = 1
     for i in range(s):
         art = newspaper_build_obj.articles[i]
-        a = UploadArticle(art)
+        a = UploadArticle(art,collection)
         validity_reason = a.check_validity()
         if validity_reason == 0:
             article_list.append(a)
