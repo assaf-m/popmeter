@@ -76,6 +76,6 @@ def UploadAll(html_page,collection):
             a.valid = False
             a.validity_reason = validity_reason
             article_list.append(a)
-    #insert article, if it doesnt exist. notice the specification of the ID field and its corresponding value
-    collection.insertArticle(articleObj= a,ID_field_name= 'title',ID_field_value = a.title)
+        #insert article, if it doesnt exist. notice the specification of the ID field and its corresponding value
+        collection.insertArticle(articleObj= a,ID_field_name= 'title',ID_field_value = a.title)
     return(article_list)
