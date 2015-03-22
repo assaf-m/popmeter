@@ -48,13 +48,12 @@ class ArticleHandler(object):
         return reason
 
 
-def UploadArticle(newspaper_article,collection):
+def UploadArticle(newspaper_article):
     newspaper_article.download()
     newspaper_article.parse()
     a = ArticleHandler()
     a.load_data(newspaper_article)
-    #insert article, if it doesnt exist. notice the specification of the ID field and its corresponding value
-    collection.insertArticle(articleObj= a,ID_field_name= 'title',ID_field_value = a.title)
+
     return(a)
 
 
@@ -66,7 +65,7 @@ def UploadAll(html_page,collection):
     # run on all articles in source and enter the articles into a list
     for i in range(s):
         art = newspaper_build_obj.articles[i]
-        a = UploadArticle(art,collection)
+        a = UploadArticle(art)
         validity_reason = a.check_validity()
         if validity_reason == 0:
             article_list.append(a)
@@ -77,5 +76,6 @@ def UploadAll(html_page,collection):
             a.valid = False
             a.validity_reason = validity_reason
             article_list.append(a)
-
+    #insert article, if it doesnt exist. notice the specification of the ID field and its corresponding value
+    collection.insertArticle(articleObj= a,ID_field_name= 'title',ID_field_value = a.title)
     return(article_list)
