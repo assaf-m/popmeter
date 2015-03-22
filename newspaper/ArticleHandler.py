@@ -8,13 +8,16 @@ MINIMUM_TEXT_LENGTH = 1000
 
 class ArticleHandler(object):
     def __init__(self):
-        self.url = ''
-        self.title = ''
-        self.author_list = []
-        self.text = ''
-        self.datetimestr = ''
-        self.valid = True
-        self.validity_reason = 0
+        self.url = ''   # a string containing the url of the article
+        self.title = '' # a string containing the title of the article
+        self.author_list = []   # a list containing the authors names (each one in a string)
+        self.text = ''  # a string containing the body text of the article
+        self.datetimestr = ''   # a string containing the date and time when article was added to list, in the form: YYYY MM DD HH MM SS
+        self.valid = True   # a boolian indicating if this entry is a valid article
+        self.validity_reason = 0    # an integer indicating if entry is a valid article
+                                    # value meaning:
+                                    # 0   - entry is valid
+                                    # 100 - length of article text is shorter then MINIMUM_TEXT_LENGTH
 
     def load_data(self,article):
         self.url = article.url
@@ -42,7 +45,7 @@ class ArticleHandler(object):
         reason = 0
         if len(self.text) < MINIMUM_TEXT_LENGTH:
             reason = 100
-        return(reason)
+        return reason
 
 
 def UploadArticle(newspaper_article,collection):
@@ -56,10 +59,11 @@ def UploadArticle(newspaper_article,collection):
 
 
 def UploadAll(html_page,collection):
-    newspaper_build_obj = newspaper.build(html_page, memoize_articles=False)
+    newspaper_build_obj = newspaper.build(html_page, memoize_articles=False)    # build a new newspapaer source
     s = newspaper_build_obj.size()
     article_list=[]
     j = 1
+    # run on all articles in source and enter the articles into a list
     for i in range(s):
         art = newspaper_build_obj.articles[i]
         a = UploadArticle(art,collection)
