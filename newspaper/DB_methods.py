@@ -50,6 +50,7 @@ class Collection_Ops:
         try:
             exists = self.lookForArticle(condition={ID_field_name:ID_field_value})
             if exists is not None:
+                print 'WARNING - Article %s exists in DB!' % ID_field_value
                 pass
             else:
                 self.collection.insert(articleObj.__dict__)

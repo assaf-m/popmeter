@@ -2,9 +2,8 @@
 '''
 import ArticleHandler
 import newspaper
-#from newspaper import Article
-import random
 import DB_methods
+import MostPopularHandler
 
 
 TEST_DIR = 'E:\\Project\\Popmeter\\Test_Results\\'
@@ -15,23 +14,33 @@ def writeTestLog(text):
 def writeTestResultToFile(fname, article):
     article.write_to_file(fname)
 
-def runTest1(html_page, number_of_tests, news_paper_name):
+def runTest1(html_page):
+    #html_page = 'http://www.theguardian.com/politics'
+
     db = DB_methods.DB_worker(dbName = 'newDB',port=27017,host='localhost') #mongo DB connection initialized
     collection  = DB_methods.Collection_Ops(collectionName='articles',DB=db) #specify the collection to work on
     article_list = ArticleHandler.UploadAll(html_page,collection)
-    s = len(article_list)
-    if (number_of_tests > s):
-        n = 2
-        writeTestLog('Number of tests greater then number of articles, n changed to 2')
-    else:
-        n = number_of_tests
-    short_list = random.sample(article_list,n)
-    i = 0
-    for art in short_list:
-        i = i + 1
-        fname = TEST_DIR + news_paper_name + 'Test1_Result_' + str(i) + '.txt'
-        art.write_to_file(fname)
-        writeTestLog('Writing test result #' + str(i) +' to file: ' + fname)
+    # article_list = ['1', '2']
+    grd_mostpop = MostPopularHandler.ArticlesFromMostPopularList('The Guardian')
+    list_len = len(grd_mostpop.article_list)
+    writeTestLog('The most popular articles list has: ' + str(list_len) + ' articles')
+    num_of_hits = 0
+    i=0
+    for i in range(0, list_len-1):
+        url = grd_mostpop.article_list[i].address
+        j = 0
+        for j in range (0,len(article_list)-1):
+            if (article_list[j].url == url):
+                num_of_hits += 1
+                writeTestLog('found article #' + str(i) + ' (' + url + ')' )
+                break
+                # j = len(article_list)-1
+            else:
+                if (j == len(article_list)-1):
+                    writeTestLog('did not find article #' + str(i) + ' (' + url + ')' )
+    writeTestLog('found ' + str(num_of_hits) + ' out of ' + str(list_len) + ' articles')
+
+
 
 def UnitTest():
 # Washington Post Unit Test
